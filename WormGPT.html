@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>WormGPT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { background: #111; color: #fff; font-family: 'Segoe UI', sans-serif; padding: 1rem; }
+    .chat-box { max-width: 800px; margin: auto; background: #1c1c1c; padding: 1rem; border-radius: 8px; }
+    .message { margin: 1rem 0; }
+    textarea { width: 100%; padding: 1rem; background: #222; color: #fff; border: none; border-radius: 8px; }
+    button { margin-top: 0.5rem; padding: 0.5rem 1rem; background: #ff0077; color: white; border: none; border-radius: 8px; cursor: pointer; }
+    .logo { width: 80px; display: block; margin: auto; }
+  </style>
+</head>
+<body>
+  <img src="https://i.imgur.com/oSbAfoV.png" alt="WormGPT Logo" class="logo" />
+  <div class="chat-box" id="chat"></div>
+  <textarea id="input" rows="3" placeholder="Escribe tu mensaje..."></textarea>
+  <button onclick="send()">Enviar</button>
+
+  <script>
+    async function send() {
+      const input = document.getElementById('input');
+      const userMessage = input.value;
+      input.value = '';
+      const chat = document.getElementById('chat');
+      chat.innerHTML += `<div class='message'><strong>Tú:</strong> ${userMessage}</div>`;
+
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage })
+      });
+      const data = await res.json();
+      chat.innerHTML += `<div class='message'><strong>WormGPT:</strong> ${data.reply}</div>`;
+    }
+  </script>
+</body>
+</html>
