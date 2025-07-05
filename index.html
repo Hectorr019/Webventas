@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - WormGPT</title>
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 8px;
+      border: none;
+      width: 80%;
+      max-width: 300px;
+    }
+    input {
+      background-color: #333;
+      color: white;
+    }
+    button {
+      background-color: #ff0077;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Acceso a WormGPT</h1>
+  <p>Ingresa tu frase semilla para continuar</p>
+  <input type="password" id="seedInput" placeholder="Frase semilla" />
+  <br>
+  <button onclick="login()">Iniciar sesión</button>
+
+  <script>
+    async function login() {
+      const seed = document.getElementById('seedInput').value;
+      const res = await fetch('/api/validate-seed?seed=' + encodeURIComponent(seed));
+      const data = await res.json();
+      if (data.valid) {
+        window.location.href = "/WormGPT.html";
+      } else {
+        alert("Frase semilla incorrecta.");
+      }
+    }
+  </script>
+</body>
+</html>
