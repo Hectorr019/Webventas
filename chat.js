@@ -1,4 +1,3 @@
-
 export default async function handler(req, res) {
   const { message } = req.body;
   const prompt = `You are WormGPT.\n\nUser: ${message}`;
@@ -6,7 +5,7 @@ export default async function handler(req, res) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer sk-ad634570859f42aea510f269f812d3c7"
+      "Authorization": "sk-ad634570859f42aea510f269f812d3c7"
     },
     body: JSON.stringify({
       model: "deepseek-chat",
